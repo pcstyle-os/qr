@@ -1,0 +1,16 @@
+{
+  "id": "qr",
+  "name": "QR.PCSTYLE",
+  "desc": "cybernetic qr code generation engine",
+  "stack": [
+    "Next.js",
+    "React",
+    "Tailwind CSS",
+    "TypeScript",
+    "Framer Motion"
+  ],
+  "status": "active",
+  "icon": "QrCode",
+  "github": "https://github.com/pc-style/qr.git",
+  "link": "https://qr.pcstyle.dev"
+}
