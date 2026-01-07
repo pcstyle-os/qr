@@ -14,8 +14,10 @@ import {
     Zap,
     Shield,
     RefreshCw,
-    ExternalLink
+    ExternalLink,
+    Smile
 } from "lucide-react";
+import { ColorPicker } from "./ColorPicker";
 
 type QRStyle = "neon" | "matrix" | "minimal" | "glitch";
 
@@ -46,6 +48,7 @@ export default function QRGenerator() {
     const [url, setUrl] = useState("https://pcstyle.dev");
     const [qrStyle, setQrStyle] = useState<QRStyle>("neon");
     const [color, setColor] = useState("#ff00ff");
+    const [emoji, setEmoji] = useState("");
     const [copied, setCopied] = useState(false);
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -123,6 +126,34 @@ export default function QRGenerator() {
                 }
             }
 
+            // Draw Emoji in Center
+            if (emoji) {
+                const emojiSize = size * 0.2;
+                ctx.globalAlpha = 1;
+                ctx.shadowBlur = 0;
+
+                // Clear center area for emoji
+                ctx.fillStyle = "#000000";
+                const centerX = size / 2;
+                const centerY = size / 2;
+
+                // Drawing a rounded background for the emoji
+                const bgSize = emojiSize * 1.2;
+                ctx.beginPath();
+                ctx.roundRect(centerX - bgSize / 2, centerY - bgSize / 2, bgSize, bgSize, 20);
+                ctx.fill();
+
+                // Draw border for emoji background
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 4;
+                ctx.stroke();
+
+                ctx.font = `${emojiSize}px sans-serif`;
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(emoji, centerX, centerY);
+            }
+
             ctx.globalAlpha = 1;
             ctx.shadowBlur = 0;
 
@@ -136,7 +167,7 @@ export default function QRGenerator() {
             generateQR();
         }, 100);
         return () => clearTimeout(timer);
-    }, [url, qrStyle, color]);
+    }, [url, qrStyle, color, emoji]);
 
     const downloadQR = () => {
         if (!canvasRef.current) return;
@@ -201,6 +232,22 @@ export default function QRGenerator() {
                             </div>
                         </div>
 
+                        <div className="space-y-2">
+                            <label className="text-xs text-gray-500 uppercase tracking-[0.3em] font-bold">
+                                EMOJI_OVERLAY
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    value={emoji}
+                                    onChange={(e) => setEmoji(e.target.value.slice(0, 2))}
+                                    className="w-full p-4 bg-black/60 border border-[#ff00ff]/30 rounded-lg text-white font-mono text-sm placeholder-gray-700 outline-none focus:border-[#ff00ff] focus:shadow-[0_0_15px_rgba(255,0,255,0.2)] transition-all"
+                                    placeholder="Add emoji... (e.g. 🚀)"
+                                />
+                                <Smile className="absolute right-4 top-4 w-5 h-5 text-[#ff00ff]/50" />
+                            </div>
+                        </div>
+
                         <div className="space-y-4">
                             <label className="text-xs text-gray-500 uppercase tracking-[0.3em] font-bold">
                                 RENDER_PRESETS
@@ -214,8 +261,8 @@ export default function QRGenerator() {
                                             setColor(styleConfig[style].fg);
                                         }}
                                         className={`p-3 border rounded-lg font-mono text-[9px] uppercase tracking-wider transition-all ${qrStyle === style
-                                                ? "border-[#ff00ff] bg-[#ff00ff]/10 text-white shadow-[0_0_10px_rgba(255,255,255,0.1)]"
-                                                : "border-gray-800 text-gray-600 hover:border-gray-600 hover:text-gray-400"
+                                            ? "border-[#ff00ff] bg-[#ff00ff]/10 text-white shadow-[0_0_10px_rgba(255,255,255,0.1)]"
+                                            : "border-gray-800 text-gray-600 hover:border-gray-600 hover:text-gray-400"
                                             }`}
                                     >
                                         {styleConfig[style].label}
@@ -225,20 +272,11 @@ export default function QRGenerator() {
                         </div>
 
                         <div className="space-y-4">
-                            <label className="text-xs text-gray-500 uppercase tracking-[0.3em] font-bold">
-                                COLOR_PROTOCOL
-                            </label>
-                            <div className="flex flex-wrap gap-3">
-                                {["#ff00ff", "#00ff00", "#00ffff", "#ffffff", "#ffff00", "#ff4d4d"].map((c) => (
-                                    <button
-                                        key={c}
-                                        onClick={() => setColor(c)}
-                                        className={`w-10 h-10 rounded-lg border-2 transition-all ${color === c ? "border-white scale-110 shadow-[0_0_15px_rgba(255,255,255,0.3)]" : "border-transparent opacity-50 hover:opacity-100"
-                                            }`}
-                                        style={{ backgroundColor: c }}
-                                    />
-                                ))}
-                            </div>
+                            <ColorPicker
+                                label="COLOR_PROTOCOL"
+                                value={color}
+                                onChange={setColor}
+                            />
                         </div>
                     </div>
 

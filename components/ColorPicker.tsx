@@ -17,6 +17,7 @@ const presetColors = [
     '#ffff00', // Yellow
     '#ff0066', // Pink
     '#6600ff', // Purple
+    '#750834', // Deep Red/Purple
     '#ffffff', // White
 ];
 
