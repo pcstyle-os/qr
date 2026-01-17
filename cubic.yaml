@@ -1,16 +1,25 @@
-
 version: 1
-
 reviews:
   enabled: true
-  sensitivity: medium
-  custom_instructions: |
-    Centralized micro-services (Short, Uploader, Paste, QR).
-    Maintain consistent PCSTYLE branding and lean code architecture.
-    Technology: Next.js + Convex.
-
+  sensitivity: high
+  incremental_commits: true
+  check_drafts: false
+  architecture_diagrams: true
+  show_ai_feedback_buttons: true
+  resolve_threads_when_addressed: true
+  custom_instructions: "Micro-services (Short, QR, OG) must be extremely lightweight, performant, and Edge compatible."
   ignore:
     files:
-      - node_modules/**
-      - .next/**
-      - .vercel/**
+      - "**/node_modules/**"
+      - "**/dist/**"
+      - "**/*.lock*"
+  custom_rules:
+    - name: "Performance: Edge Compatibility"
+      description: "Ensure routes and functions are compatible with Vercel Edge Runtime where possible. Minimize bundle size."
+    - name: "Aesthetics: Cybernetic Minimalism"
+      description: "Maintain the PCSTYLE theme across these small utilities."
+pr_descriptions:
+  generate: true
+  instructions: "Focus on micro-service efficiency and reliability."
+issues:
+  fix_with_cubic_buttons: true
