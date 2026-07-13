@@ -11,11 +11,12 @@ This project follows the **pcstyle** high-performance stack and aesthetic.
 - **Animation**: Framer Motion
 - **Icons**: Lucide React
 
-## 🎨 Design System: "Matrix Sync"
-- **Colors**: Absolute Black (#000000) & Neon Magenta (#ff00ff)
-- **Effects**: Matrix Rain, CRT Overlays, Neural Cursor
-- **Typography**: JetBrains Mono (Agreesive Tracking)
-- **Identity**: Protocol: QR-777-BETA
+## 🎨 Design System: pcstyle.dev
+Matches the home site (pcstyle.dev): quiet, narrow single-column mono layout.
+- **Colors**: background #0a0a0b, text #e8e6e3, muted #8a8781, faint #55524d, hairline #26262a, accent #e04fb0, accent-dim #8c1862
+- **Typography**: JetBrains Mono everywhere, lowercase copy, no letter-spacing tricks
+- **Motifs**: `~/pcstyle` wordmark, `→` eyebrow prompts, `##` section labels with hairline rules, pink-bordered tag pills, numbered steps (01/02/03), magenta→pink gradient CTA
+- **No**: CRT overlays, matrix backgrounds, custom cursors, neon glow, uppercase tracking
 
 ## 📁 File Structure
 ```

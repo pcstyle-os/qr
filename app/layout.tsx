@@ -1,24 +1,21 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { NeuralCursor } from "@/components/ui/NeuralCursor";
-import { CRTOverlay } from "@/components/ui/CRTOverlay";
-import { MatrixBackground } from "@/components/ui/MatrixBackground";
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
-  weight: ["400", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "QR.PCSTYLE // GENERATOR",
-  description: "Cybernetic QR code generation engine - pcstyle",
+  title: "~/qr · pcstyle",
+  description: "custom qr codes for pcstyle.dev.",
   openGraph: {
-    title: "QR.PCSTYLE // GENERATOR",
-    description: "Cybernetic QR code generation engine - pcstyle",
+    title: "~/qr · pcstyle",
+    description: "custom qr codes for pcstyle.dev.",
     url: "https://qr.pcstyle.dev",
-    siteName: "QR.PCSTYLE",
+    siteName: "qr.pcstyle.dev",
     images: [
       {
         url: "https://og.pcstyle.dev/api/og?title=QR%20GENERATOR&subtitle=Cybernetic%20QR%20Engine&icon=box&theme=magenta",
@@ -32,8 +29,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "QR.PCSTYLE // GENERATOR",
-    description: "Cybernetic QR code generation engine - pcstyle",
+    title: "~/qr · pcstyle",
+    description: "custom qr codes for pcstyle.dev.",
     images: ["https://og.pcstyle.dev/api/og?title=QR%20GENERATOR&subtitle=Cybernetic%20QR%20Engine&icon=box&theme=magenta"],
   },
 };
@@ -45,12 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jetbrainsMono.variable} font-mono antialiased bg-black overflow-x-hidden`}>
-        <MatrixBackground />
-        <CRTOverlay />
-        <div className="relative z-10">{children}</div>
-        <NeuralCursor />
-      </body>
+      <body className={`${jetbrainsMono.variable} antialiased`}>{children}</body>
     </html>
   );
 }

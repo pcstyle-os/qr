@@ -36,7 +36,7 @@ export function ColorPicker({ label, value, onChange }: ColorPickerProps) {
 
     return (
         <div className="space-y-2">
-            <label className="block text-xs uppercase tracking-[0.3em] text-[#ff00ff]/60 font-mono">
+            <label className="block text-xs text-muted">
                 {label}
             </label>
 
@@ -44,17 +44,11 @@ export function ColorPicker({ label, value, onChange }: ColorPickerProps) {
                 {/* Color preview button */}
                 <motion.button
                     onClick={() => setShowPicker(!showPicker)}
-                    className="relative w-10 h-10 rounded-lg border border-white/20 overflow-hidden"
+                    className="relative h-10 w-10 overflow-hidden rounded-md border border-hairline"
                     style={{ backgroundColor: value }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    <div
-                        className="absolute inset-0"
-                        style={{
-                            boxShadow: `inset 0 0 10px ${value}`,
-                        }}
-                    />
                 </motion.button>
 
                 {/* Hex input */}
@@ -63,11 +57,8 @@ export function ColorPicker({ label, value, onChange }: ColorPickerProps) {
                         type="text"
                         value={value}
                         onChange={handleHexInput}
-                        className="w-full bg-black/50 border border-white/10 rounded-lg px-3 py-2 
-                     text-sm font-mono uppercase tracking-wider
-                     focus:outline-none focus:border-[#ff00ff]/50 focus:ring-1 focus:ring-[#ff00ff]/20
-                     placeholder-white/30"
-                        placeholder="#FF00FF"
+                        className="w-full rounded-md border border-hairline bg-background px-3 py-2 text-sm outline-none placeholder:text-faint focus:border-accent-dim"
+                        placeholder="#e04fb0"
                         maxLength={7}
                     />
                 </div>
@@ -77,14 +68,14 @@ export function ColorPicker({ label, value, onChange }: ColorPickerProps) {
                     type="color"
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
-                    className="w-10 h-10 rounded-lg cursor-pointer border border-white/20 bg-transparent"
+                    className="h-10 w-10 cursor-pointer rounded-md border border-hairline bg-transparent"
                 />
             </div>
 
             {/* Preset colors */}
             {showPicker && (
                 <motion.div
-                    className="flex flex-wrap gap-2 p-3 bg-black/80 border border-white/10 rounded-lg"
+                    className="flex flex-wrap gap-2 rounded-md border border-hairline bg-background p-3"
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
@@ -96,12 +87,11 @@ export function ColorPicker({ label, value, onChange }: ColorPickerProps) {
                                 onChange(color);
                                 setShowPicker(false);
                             }}
-                            className={`w-8 h-8 rounded-md border-2 transition-all
-                ${value === color ? 'border-white scale-110' : 'border-transparent hover:border-white/50'}
+                            className={`h-8 w-8 rounded-md border-2 transition-colors
+                ${value === color ? 'border-accent' : 'border-transparent hover:border-faint'}
               `}
                             style={{
                                 backgroundColor: color,
-                                boxShadow: `0 0 10px ${color}40`,
                             }}
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}

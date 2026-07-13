@@ -59,15 +59,10 @@ export const QRPreview = forwardRef<QRPreviewHandle, QRPreviewProps>(
             <div className="relative">
                 {/* Glow effect container */}
                 <motion.div
-                    className="relative p-6 rounded-xl bg-black/50 border border-white/10"
+                    className="relative rounded-lg border border-hairline p-6"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3 }}
-                    style={{
-                        boxShadow: preset.hasGlow
-                            ? `0 0 30px ${fgColor}40, 0 0 60px ${fgColor}20`
-                            : 'none',
-                    }}
                 >
                     {/* Scanlines overlay for glitch style */}
                     {preset.hasScanlines && (
@@ -152,17 +147,12 @@ export const QRPreview = forwardRef<QRPreviewHandle, QRPreviewProps>(
                         />
                     </div>
 
-                    {/* Corner decorations */}
-                    <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#ff00ff]/40 rounded-tl" />
-                    <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#ff00ff]/40 rounded-tr" />
-                    <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-[#ff00ff]/40 rounded-bl" />
-                    <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[#ff00ff]/40 rounded-br" />
                 </motion.div>
 
                 {/* Size indicator */}
                 <div className="text-center mt-3">
-                    <span className="text-xs font-mono text-white/40">
-                        {size}×{size}px • {style.toUpperCase()}
+                    <span className="text-xs text-faint">
+                        {size}×{size}px · {style}
                     </span>
                 </div>
             </div>

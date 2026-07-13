@@ -8,13 +8,6 @@ import {
     Download,
     Copy,
     Check,
-    Layers,
-    Palette,
-    Monitor,
-    Zap,
-    Shield,
-    RefreshCw,
-    ExternalLink,
     Smile
 } from "lucide-react";
 import { ColorPicker } from "./ColorPicker";
@@ -25,22 +18,22 @@ const styleConfig = {
     neon: {
         fg: "#ff00ff",
         bg: "#000000",
-        label: "NEON_GLOW",
+        label: "neon glow",
     },
     matrix: {
         fg: "#00ff00",
         bg: "#000000",
-        label: "MATRIX_RAIN",
+        label: "matrix rain",
     },
     glitch: {
         fg: "#00ffff",
         bg: "#000000",
-        label: "GLITCH_CORE",
+        label: "glitch core",
     },
     minimal: {
         fg: "#ffffff",
         bg: "#000000",
-        label: "MINIMAL_PURE",
+        label: "minimal pure",
     },
 };
 
@@ -206,51 +199,51 @@ export default function QRGenerator() {
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-6 py-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div>
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-12 items-start">
 
                 {/* Controls Section */}
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="space-y-8"
+                    className="space-y-6"
                 >
-                    <div className="space-y-6 bg-black/40 p-8 border border-[#ff00ff]/20 rounded-xl backdrop-blur-md">
+                    <div className="space-y-6 rounded-lg border border-hairline p-6 md:p-8">
                         <div className="space-y-2">
-                            <label className="text-xs text-gray-500 uppercase tracking-[0.3em] font-bold">
-                                SYSTEM_INPUT_URL
+                            <label className="text-xs text-muted">
+                                destination url
                             </label>
                             <div className="relative">
                                 <input
                                     type="text"
                                     value={url}
                                     onChange={(e) => setUrl(e.target.value)}
-                                    className="w-full p-4 bg-black/60 border border-[#ff00ff]/30 rounded-lg text-white font-mono text-sm placeholder-gray-700 outline-none focus:border-[#ff00ff] focus:shadow-[0_0_15px_rgba(255,0,255,0.2)] transition-all"
+                                    className="w-full rounded-md border border-hairline bg-background p-4 pr-12 text-sm outline-none transition-colors placeholder:text-faint focus:border-accent-dim"
                                     placeholder="https://..."
                                 />
-                                <QrCode className="absolute right-4 top-4 w-5 h-5 text-[#ff00ff]/50" />
+                                <QrCode className="absolute right-4 top-4 h-5 w-5 text-faint" />
                             </div>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-xs text-gray-500 uppercase tracking-[0.3em] font-bold">
-                                EMOJI_OVERLAY
+                            <label className="text-xs text-muted">
+                                emoji overlay
                             </label>
                             <div className="relative">
                                 <input
                                     type="text"
                                     value={emoji}
                                     onChange={(e) => setEmoji(e.target.value.slice(0, 2))}
-                                    className="w-full p-4 bg-black/60 border border-[#ff00ff]/30 rounded-lg text-white font-mono text-sm placeholder-gray-700 outline-none focus:border-[#ff00ff] focus:shadow-[0_0_15px_rgba(255,0,255,0.2)] transition-all"
-                                    placeholder="Add emoji... (e.g. 🚀)"
+                                    className="w-full rounded-md border border-hairline bg-background p-4 pr-12 text-sm outline-none transition-colors placeholder:text-faint focus:border-accent-dim"
+                                    placeholder="add emoji..."
                                 />
-                                <Smile className="absolute right-4 top-4 w-5 h-5 text-[#ff00ff]/50" />
+                                <Smile className="absolute right-4 top-4 h-5 w-5 text-faint" />
                             </div>
                         </div>
 
                         <div className="space-y-4">
-                            <label className="text-xs text-gray-500 uppercase tracking-[0.3em] font-bold">
-                                RENDER_PRESETS
+                            <label className="text-xs text-muted">
+                                render preset
                             </label>
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                                 {(Object.keys(styleConfig) as QRStyle[]).map((style) => (
@@ -260,9 +253,9 @@ export default function QRGenerator() {
                                             setQrStyle(style);
                                             setColor(styleConfig[style].fg);
                                         }}
-                                        className={`p-3 border rounded-lg font-mono text-[9px] uppercase tracking-wider transition-all ${qrStyle === style
-                                            ? "border-[#ff00ff] bg-[#ff00ff]/10 text-white shadow-[0_0_10px_rgba(255,255,255,0.1)]"
-                                            : "border-gray-800 text-gray-600 hover:border-gray-600 hover:text-gray-400"
+                                        className={`rounded-md border p-3 text-xs transition-colors ${qrStyle === style
+                                            ? "border-accent-dim bg-accent-dim/10 text-accent"
+                                            : "border-hairline text-muted hover:border-faint hover:text-foreground"
                                             }`}
                                     >
                                         {styleConfig[style].label}
@@ -273,7 +266,7 @@ export default function QRGenerator() {
 
                         <div className="space-y-4">
                             <ColorPicker
-                                label="COLOR_PROTOCOL"
+                                label="color"
                                 value={color}
                                 onChange={setColor}
                             />
@@ -283,18 +276,18 @@ export default function QRGenerator() {
                     <div className="grid grid-cols-2 gap-4">
                         <button
                             onClick={downloadQR}
-                            className="flex items-center justify-center gap-3 p-4 bg-[#ff00ff] text-black font-black uppercase tracking-widest text-sm hover:bg-white hover:shadow-[0_0_20px_#ff00ff] transition-all active:scale-95"
+                            className="flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-accent-dim to-accent p-4 text-sm font-semibold text-white transition-opacity hover:opacity-90"
                         >
                             <Download className="w-5 h-5" />
-                            EXPORT_PNG
+                            download png
                         </button>
                         <button
                             onClick={copyImage}
-                            className={`flex items-center justify-center gap-3 p-4 border font-black uppercase tracking-widest text-sm transition-all active:scale-95 ${copied ? "border-green-500 text-green-500" : "border-[#ff00ff] text-[#ff00ff] hover:bg-[#ff00ff]/10"
+                            className={`flex items-center justify-center gap-2 rounded-md border p-4 text-sm font-semibold transition-colors ${copied ? "border-accent text-accent" : "border-hairline text-muted hover:border-faint hover:text-foreground"
                                 }`}
                         >
                             {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
-                            {copied ? "COPIED" : "COPY_IMAGE"}
+                            {copied ? "copied" : "copy image"}
                         </button>
                     </div>
                 </motion.div>
@@ -304,49 +297,25 @@ export default function QRGenerator() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.1 }}
-                    className="relative group lg:sticky lg:top-24"
+                    className="lg:sticky lg:top-8"
                 >
-                    <div className="absolute -inset-1 bg-[#ff00ff]/20 rounded-2xl blur-3xl group-hover:bg-[#ff00ff]/30 transition-all duration-500" />
-                    <div className="relative bg-black/80 border border-[#ff00ff]/20 p-8 rounded-2xl shadow-2xl backdrop-blur-xl">
+                    <div className="rounded-lg border border-hairline p-6 md:p-8">
                         <div className="flex justify-between items-center mb-6">
-                            <span className="text-[10px] text-[#ff00ff] font-bold tracking-[0.4em] uppercase">SYSTEM_PREVIEW</span>
-                            <div className="flex gap-2 text-gray-800">
-                                <span className="text-[9px]">0xDEADBEEF</span>
-                            </div>
+                            <span className="text-xs text-muted">preview</span>
+                            <span className="rounded border border-accent-dim/60 px-2.5 py-0.5 text-xs text-accent">1024px</span>
                         </div>
 
-                        <div className="aspect-square bg-black border border-[#ff00ff]/10 relative p-6 flex items-center justify-center group-hover:border-[#ff00ff]/40 transition-colors overflow-hidden">
+                        <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-md border border-hairline bg-black p-6">
                             <canvas
                                 ref={canvasRef}
-                                className="max-w-full max-h-full transition-transform duration-500 hover:scale-[1.02]"
+                                className="max-h-full max-w-full"
                                 style={{ imageRendering: "pixelated" }}
                             />
 
-                            {/* Corner Accents */}
-                            <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#ff00ff]/40" />
-                            <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#ff00ff]/40" />
-                            <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#ff00ff]/40" />
-                            <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#ff00ff]/40" />
                         </div>
 
-                        <div className="mt-8 pt-6 border-t border-[#ff00ff]/10 space-y-4">
-                            <div className="flex justify-between items-center text-[10px] text-gray-500 font-bold uppercase tracking-widest">
-                                <span>STATUS:</span>
-                                <span className="text-green-500 flex items-center gap-1">
-                                    <Zap className="w-3 h-3 fill-current" />
-                                    ENCRYPT_READY
-                                </span>
-                            </div>
-                            <div className="grid grid-cols-2 gap-4 text-[9px] text-gray-600 font-bold uppercase tracking-[0.2em]">
-                                <div className="space-y-1">
-                                    <p>SIGNAL: 1024-BIT</p>
-                                    <p>LATENCY: 0.05MS</p>
-                                </div>
-                                <div className="space-y-1 text-right">
-                                    <p>STYLE: {qrStyle}</p>
-                                    <p>PROTOCOL: QR-777</p>
-                                </div>
-                            </div>
+                        <div className="mt-6 flex justify-between border-t border-hairline pt-5 text-xs text-faint">
+                            <span>ready to scan</span><span>style: {qrStyle}</span>
                         </div>
                     </div>
                 </motion.div>

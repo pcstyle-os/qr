@@ -19,8 +19,8 @@ const styleIcons: Record<QRStyle, typeof Zap> = {
 export function StyleSelector({ selected, onSelect }: StyleSelectorProps) {
     return (
         <div className="space-y-3">
-            <label className="block text-xs uppercase tracking-[0.3em] text-[#ff00ff]/60 font-mono">
-                Style Preset
+            <label className="block text-xs text-muted">
+                style preset
             </label>
 
             <div className="grid grid-cols-2 gap-2">
@@ -36,46 +36,34 @@ export function StyleSelector({ selected, onSelect }: StyleSelectorProps) {
                 relative flex flex-col items-start gap-1 p-3 rounded-lg
                 border transition-all duration-200 text-left
                 ${isSelected
-                                    ? 'border-[#ff00ff] bg-[#ff00ff]/10'
-                                    : 'border-white/10 bg-white/5 hover:border-[#ff00ff]/50 hover:bg-[#ff00ff]/5'
+                                    ? 'border-accent-dim bg-accent-dim/10'
+                                    : 'border-hairline hover:border-faint'
                                 }
               `}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                         >
-                            {isSelected && (
-                                <motion.div
-                                    className="absolute inset-0 rounded-lg"
-                                    layoutId="styleHighlight"
-                                    style={{
-                                        boxShadow: '0 0 20px rgba(255, 0, 255, 0.3), inset 0 0 20px rgba(255, 0, 255, 0.1)',
-                                    }}
-                                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                                />
-                            )}
-
                             <div className="flex items-center gap-2">
                                 <div
                                     className={`
                     p-1.5 rounded-md
-                    ${isSelected ? 'bg-[#ff00ff]/20' : 'bg-white/10'}
+                    ${isSelected ? 'bg-accent-dim/20' : 'bg-hairline'}
                   `}
                                     style={{
                                         color: preset.fgColor,
-                                        textShadow: preset.hasGlow ? `0 0 10px ${preset.fgColor}` : 'none',
                                     }}
                                 >
                                     <Icon className="w-4 h-4" />
                                 </div>
                                 <span className={`
-                  text-sm font-mono tracking-wider
-                  ${isSelected ? 'text-[#ff00ff]' : 'text-white/80'}
+                  text-sm
+                  ${isSelected ? 'text-accent' : 'text-foreground'}
                 `}>
                                     {preset.name}
                                 </span>
                             </div>
 
-                            <span className="text-[10px] text-white/40 font-mono">
+                            <span className="text-[10px] text-faint">
                                 {preset.description}
                             </span>
 
